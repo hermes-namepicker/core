@@ -1,0 +1,36 @@
+services:
+  mssql:
+    container_name: sql-server-namepicker
+    image: mcr.microsoft.com/azure-sql-edge
+    restart: always
+    user: root
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Docker.NamePicker.2024"
+      MSSQL_PID: "Developer"
+    ports:
+      - "1435:1433"
+    volumes:
+      - sql-server-data:/var/opt/mssql
+    networks:
+      - app-network
+  
+  hermes.namepicker.api:
+    image: ${DOCKER_REGISTRY-}hermes-namepicker-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mssql
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  sql-server-data:
+    driver: local
