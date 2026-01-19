@@ -1,18 +1,22 @@
 <template>
-    <div class="namePickerContainer">
-        <select name="schoolClasses" id="schoolClasses" v-bind="selectedSchoolClass">
-            <option v-for="schoolClass in schoolClasses">{{ schoolClass.name }}</option>
-        </select>
-        <br>
+    <main>
+        <div class="outerNamePickerContainer">
+            <div class="namePickerContainer">
+                <select name="schoolClasses" id="schoolClasses" class="namePickerChild" v-bind="selectedSchoolClass">
+                    <option v-for="schoolClass in schoolClasses">{{ schoolClass }}</option>
+                </select>
+                <br>
 
-        <input type="number" name="nameCount" id="nameCount" v-bind="nameCount">
-        <br>
+                <input type="number" name="nameCount" id="nameCount" class="namePickerChild" v-bind="nameCount">
+                <br>
 
-        <button @click="onPick">Picken</button>
-    </div>
+                <button @click="onPick" class="pickButton namePickerChild">Pick</button>
+            </div>
+        </div>
+    </main>
 </template>
 
-<script>
+<script setup>
 import "~/assets/css/style.css"
 
 const nameCount = ref(0)

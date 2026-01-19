@@ -1,6 +1,84 @@
+body{
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(49, 49, 49);
+}
+
+.outerNamePickerContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
 .namePickerContainer {
     display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+}
+
+.namePickerChild {
+    height: 30px;
+}
+
+.pickButton {
+    height: 50px;
+    background-color: blueviolet;
+    border: 1px solid black;
+    font-size: large;
+}
+
+.navbar {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid blueviolet;
+}
+
+.navItem {
+    margin-left: 50px;
+    text-decoration: none;
+    font-size: larger;
+    color: blueviolet;
+}
+
+.classManagerContainer {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    align-content: center;
+    min-height: 100vh;
+}
+
+.classListItem {
+    list-style-type: none;
+    color: blueviolet;
+    background-color: black;
+    display: flex;
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.schoolClassList {
+    list-style-type: none;
+}
+
+.editButton {
+    background-color: blueviolet;
+    padding: 3px;
+    border: 1px solid rgb(49, 49, 49);
+}
+
+.addClassButton {
+    background-color: blueviolet;
+    width: 220px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid black;
 }
