@@ -1,7 +1,7 @@
 services:
   mssql:
     container_name: sql-server-namepicker
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/azure-sql-edge
     restart: always
     user: root
     environment:

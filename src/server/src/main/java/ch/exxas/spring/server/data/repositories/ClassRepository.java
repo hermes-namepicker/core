@@ -33,7 +33,7 @@ public class ClassRepository {
     }
 
     public List<SchoolClass> findAll() {
-        TypedQuery<SchoolClass> query = entityManager.createQuery("SELECT c FROM Class c", SchoolClass.class);
+        TypedQuery<SchoolClass> query = entityManager.createQuery("SELECT c FROM SchoolClass c", SchoolClass.class);
         return query.getResultList();
     }
 
@@ -49,7 +49,7 @@ public class ClassRepository {
     }
 
     public Optional<SchoolClass> findByClassName(String className) {
-        TypedQuery<SchoolClass> query = entityManager.createQuery("SELECT c FROM Class c WHERE c.className = :className", SchoolClass.class);
+        TypedQuery<SchoolClass> query = entityManager.createQuery("SELECT c FROM SchoolClass c WHERE c.className = :className", SchoolClass.class);
         query.setParameter("className", className);
         List<SchoolClass> results = query.getResultList();
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
@@ -57,7 +57,7 @@ public class ClassRepository {
 
     public Optional<SchoolClass> findByIdWithStudents(UUID id) {
         TypedQuery<SchoolClass> query = entityManager.createQuery(
-            "SELECT c FROM Class c LEFT JOIN FETCH c.students WHERE c.uid = :id", SchoolClass.class);
+            "SELECT c FROM SchoolClass c LEFT JOIN FETCH c.students WHERE c.uid = :id", SchoolClass.class);
         query.setParameter("id", id);
         List<SchoolClass> results = query.getResultList();
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
