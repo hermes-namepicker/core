@@ -26,7 +26,7 @@ public class Student {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "class_id")
-    private Class clazz;
+    private SchoolClass clazz;
 
     public Student() {}
 
@@ -34,7 +34,7 @@ public class Student {
         this.name = name;
     }
 
-    public Student(String name, Class clazz) {
+    public Student(String name, SchoolClass clazz) {
         this.name = name;
         this.clazz = clazz;
     }
@@ -51,11 +51,11 @@ public class Student {
         this.name = name;
     }
 
-    public Class getClazz() {
+    public SchoolClass getClazz() {
         return clazz;
     }
 
-    public void setClazz(Class clazz) {
+    public void setClazz(SchoolClass clazz) {
         this.clazz = clazz;
     }
 }

@@ -1,6 +1,6 @@
 package ch.exxas.spring.server.domain;
 
-import ch.exxas.spring.server.data.entities.Class;
+import ch.exxas.spring.server.data.entities.SchoolClass;
 import ch.exxas.spring.server.data.repositories.ClassRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,28 +14,28 @@ public class ClassDomain {
     @Autowired
     private ClassRepository classRepository;
 
-    public Class createClass(String className) {
-        Class clazz = new Class(className);
+    public SchoolClass createClass(String className) {
+        SchoolClass clazz = new SchoolClass(className);
         return classRepository.save(clazz);
     }
 
-    public Optional<Class> getClassById(UUID id) {
+    public Optional<SchoolClass> getClassById(UUID id) {
         return classRepository.findById(id);
     }
 
-    public List<Class> getAllClasses() {
+    public List<SchoolClass> getAllClasses() {
         return classRepository.findAll();
     }
 
-    public Optional<Class> getClassByName(String className) {
+    public Optional<SchoolClass> getClassByName(String className) {
         return classRepository.findByClassName(className);
     }
 
-    public Optional<Class> getClassByIdWithStudents(UUID id) {
+    public Optional<SchoolClass> getClassByIdWithStudents(UUID id) {
         return classRepository.findByIdWithStudents(id);
     }
 
-    public Class updateClass(Class clazz) {
+    public SchoolClass updateClass(SchoolClass clazz) {
         return classRepository.update(clazz);
     }
 

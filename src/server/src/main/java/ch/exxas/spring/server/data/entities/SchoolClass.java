@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "Classes")
-public class Class {
+public class SchoolClass {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -29,9 +29,9 @@ public class Class {
     @OneToMany(mappedBy = "clazz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Student> students = new ArrayList<>();
 
-    public Class() {}
+    public SchoolClass() {}
 
-    public Class(String className) {
+    public SchoolClass(String className) {
         this.className = className;
     }
 

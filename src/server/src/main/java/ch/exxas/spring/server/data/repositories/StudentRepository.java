@@ -1,5 +1,6 @@
 package ch.exxas.spring.server.data.repositories;
 
+import ch.exxas.spring.server.data.entities.SchoolClass;
 import ch.exxas.spring.server.data.entities.Student;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -63,7 +64,7 @@ public class StudentRepository {
     public Student assignToClass(UUID studentId, UUID classId) {
         Student student = entityManager.find(Student.class, studentId);
         if (student != null && classId != null) {
-            ch.exxas.spring.server.data.entities.Class clazz = entityManager.find(ch.exxas.spring.server.data.entities.Class.class, classId);
+            SchoolClass clazz = entityManager.find(SchoolClass.class, classId);
             student.setClazz(clazz);
             return entityManager.merge(student);
         }

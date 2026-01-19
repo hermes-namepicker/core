@@ -1,7 +1,7 @@
 services:
   mssql:
     container_name: sql-server-namepicker
-    image: mcr.microsoft.com/azure-sql-edge
+    image: mcr.microsoft.com/mssql/server:2022-latest
     restart: always
     user: root
     environment:
@@ -24,6 +24,19 @@ services:
       - "8080:8080"
     depends_on:
       - mssql
+    networks:
+      - app-network
+
+  # One-shot init service to create the application database if it does not exist.
+  # This service waits until the mssql service is reachable and then runs sqlcmd
+  # to create the HERMESNamePicker database. It does not restart after completion.
+  db-init:
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      - mssql
+    entrypoint: /bin/bash
+    command: -c "until /opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P 'Docker.NamePicker.2024' -Q 'SELECT 1' >/dev/null 2>&1; do sleep 1; done; /opt/mssql-tools/bin/sqlcmd -S mssql -U sa -P 'Docker.NamePicker.2024' -Q \"IF DB_ID(N'HERMESNamePicker') IS NULL CREATE DATABASE [HERMESNamePicker];\""
+    restart: 'no'
     networks:
       - app-network
 

@@ -6,6 +6,8 @@ import jakarta.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import ch.exxas.spring.server.data.entities.SchoolClass;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,7 +18,7 @@ public class ClassRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public ch.exxas.spring.server.data.entities.Class save(ch.exxas.spring.server.data.entities.Class clazz) {
+    public SchoolClass save(SchoolClass clazz) {
         if (clazz.getUid() == null) {
             entityManager.persist(clazz);
             return clazz;
@@ -25,39 +27,39 @@ public class ClassRepository {
         }
     }
 
-    public Optional<ch.exxas.spring.server.data.entities.Class> findById(UUID id) {
-        ch.exxas.spring.server.data.entities.Class clazz = entityManager.find(ch.exxas.spring.server.data.entities.Class.class, id);
+    public Optional<SchoolClass> findById(UUID id) {
+        SchoolClass clazz = entityManager.find(SchoolClass.class, id);
         return Optional.ofNullable(clazz);
     }
 
-    public List<ch.exxas.spring.server.data.entities.Class> findAll() {
-        TypedQuery<ch.exxas.spring.server.data.entities.Class> query = entityManager.createQuery("SELECT c FROM Class c", ch.exxas.spring.server.data.entities.Class.class);
+    public List<SchoolClass> findAll() {
+        TypedQuery<SchoolClass> query = entityManager.createQuery("SELECT c FROM Class c", SchoolClass.class);
         return query.getResultList();
     }
 
-    public ch.exxas.spring.server.data.entities.Class update(ch.exxas.spring.server.data.entities.Class clazz) {
+    public SchoolClass update(SchoolClass clazz) {
         return entityManager.merge(clazz);
     }
 
     public void deleteById(UUID id) {
-        ch.exxas.spring.server.data.entities.Class clazz = entityManager.find(ch.exxas.spring.server.data.entities.Class.class, id);
+        SchoolClass clazz = entityManager.find(SchoolClass.class, id);
         if (clazz != null) {
             entityManager.remove(clazz);
         }
     }
 
-    public Optional<ch.exxas.spring.server.data.entities.Class> findByClassName(String className) {
-        TypedQuery<ch.exxas.spring.server.data.entities.Class> query = entityManager.createQuery("SELECT c FROM Class c WHERE c.className = :className", ch.exxas.spring.server.data.entities.Class.class);
+    public Optional<SchoolClass> findByClassName(String className) {
+        TypedQuery<SchoolClass> query = entityManager.createQuery("SELECT c FROM Class c WHERE c.className = :className", SchoolClass.class);
         query.setParameter("className", className);
-        List<ch.exxas.spring.server.data.entities.Class> results = query.getResultList();
+        List<SchoolClass> results = query.getResultList();
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
 
-    public Optional<ch.exxas.spring.server.data.entities.Class> findByIdWithStudents(UUID id) {
-        TypedQuery<ch.exxas.spring.server.data.entities.Class> query = entityManager.createQuery(
-            "SELECT c FROM Class c LEFT JOIN FETCH c.students WHERE c.uid = :id", ch.exxas.spring.server.data.entities.Class.class);
+    public Optional<SchoolClass> findByIdWithStudents(UUID id) {
+        TypedQuery<SchoolClass> query = entityManager.createQuery(
+            "SELECT c FROM Class c LEFT JOIN FETCH c.students WHERE c.uid = :id", SchoolClass.class);
         query.setParameter("id", id);
-        List<ch.exxas.spring.server.data.entities.Class> results = query.getResultList();
+        List<SchoolClass> results = query.getResultList();
         return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
     }
 }
